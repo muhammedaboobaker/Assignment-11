@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px;">
+
+    <h2 style="text-align: center; color: #333;">Feedback Form</h2>
+
+    <form id="feedbackForm"
+        style="max-width: 500px; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+
+        <label for="name" style="display: block; margin-bottom: 5px; font-size: 16px; color: #333;">Name:<span
+                style="color: red;">*</span></label>
+        <input type="text" id="name" name="name"
+            style="width: 96%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <div id="nameError" style="color: red; display: none; font-size: 14px;">Name is required!</div>
+
+
+        <label for="email" style="display: block; margin-bottom: 5px; font-size: 16px; color: #333;">Email:<span
+                style="color: red;">*</span></label>
+        <input type="text" id="email" name="email"
+            style="width: 96%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <div id="emailError" style="color: red; display: none; font-size: 14px;">Valid email is required!</div>
+
+
+        <label for="feedback" style="display: block; margin-bottom: 5px; font-size: 16px; color: #333;">Feedback:<span
+                style="color: red;">*</span></label>
+        <textarea id="feedback" name="feedback" rows="4"
+            style="width: 96%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+        <div id="feedbackError" style="color: red; display: none; font-size: 14px;">Feedback is required!</div>
+
+        <button type="submit"
+            style="width: 50%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;display: block; margin: 0 auto;">
+            Submit
+        </button>
+    </form>
+
+    <div id="successMessage"
+        style="color: green; text-align: center; margin-top: 20px; font-size: 16px; display: none;">Thank you for your
+        feedback!</div>
+
+    <script>
+
+        const form = document.getElementById('feedbackForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const feedbackInput = document.getElementById('feedback');
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+        const feedbackError = document.getElementById('feedbackError');
+        const successMessage = document.getElementById('successMessage');
+
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            let isValid = true;
+
+            nameError.style.display = 'none';
+            emailError.style.display = 'none';
+            feedbackError.style.display = 'none';
+            successMessage.style.display = 'none';
+
+
+            if (nameInput.value.trim() === '') {
+                nameError.style.display = 'block';
+                nameInput.focus();
+                isValid = false;
+            }
+
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(emailInput.value)) {
+                emailError.style.display = 'block';
+                emailInput.focus();
+                isValid = false;
+            }
+
+
+            if (feedbackInput.value.trim() === '') {
+                feedbackError.style.display = 'block';
+                feedbackInput.focus();
+                isValid = false;
+            }
+
+            if (isValid) {
+                successMessage.style.display = 'block';
+                nameInput.value = '';
+                emailInput.value = '';
+                feedbackInput.value = '';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
